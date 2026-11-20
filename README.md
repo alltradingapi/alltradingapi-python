@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="assets/hero.svg" alt="All Trading API" width="100%">
+  <img src="https://cdn.jsdelivr.net/gh/alltradingapi/alltradingapi-python@v1.0.2/assets/hero.svg" alt="All Trading API" width="100%">
 </p>
 
 # alltradingapi

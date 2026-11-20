@@ -1,0 +1,1 @@
+https://files.pythonhosted.org/packages/de/f7/c1c6b3ab093d567c124f97af6a40c74fbc4539d90130640e72e1e45f03b9/alltradingapi-1.0.1.tar.gz

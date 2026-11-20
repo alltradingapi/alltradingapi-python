@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "alltradingapi"
-version = "1.0.1"
+version = "1.0.2"
 description = "Quotex candles, assets, saved candles, candle history, chart images and trade result checks - zero dependencies, sync + async."
 readme = "README.md"
 requires-python = ">=3.10"

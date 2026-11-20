@@ -25,7 +25,7 @@ def test_version_matches_pyproject() -> None:
         content = fh.read()
     match = re.search(r'^version\s*=\s*"([^"]+)"', content, re.MULTILINE)
     assert match is not None
-    assert match.group(1) == __version__ == "1.0.1"
+    assert match.group(1) == __version__
 
 
 def test_version_matches_version_file() -> None:
@@ -202,6 +202,8 @@ def test_import_from_clean_interpreter() -> None:
     """Import must succeed in an isolated interpreter with only src on path."""
     import subprocess
 
+    from alltradingapi._version import __version__ as expected_version
+
     result = subprocess.run(
         [
             sys.executable,
@@ -217,4 +219,4 @@ def test_import_from_clean_interpreter() -> None:
         timeout=60,
     )
     assert result.returncode == 0, result.stderr
-    assert result.stdout.strip() == "1.0.1"
+    assert result.stdout.strip() == expected_version

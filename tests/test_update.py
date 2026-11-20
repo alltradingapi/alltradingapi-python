@@ -128,7 +128,9 @@ def test_check_for_update_fallback_version(update_cache_dir: str) -> None:
     info = update_module.check_for_update(
         installed=None, cache_dir=update_cache_dir, fetcher=_fake_fetcher("9.9.9")
     )
-    assert info.installed == "1.0.1"
+    from alltradingapi._version import __version__ as expected
+
+    assert info.installed == expected
     assert info.is_outdated is True
 
 
