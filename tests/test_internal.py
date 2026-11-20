@@ -352,7 +352,7 @@ def test_async_from_env_and_close(monkeypatch: pytest.MonkeyPatch, fake_transpor
 
     async def scenario() -> None:
         client = AsyncClient.from_env(transport=fake_transport, run_update_gate=False)
-        assert client.version == "1.0.0"
+        assert client.version == "1.0.1"
         await client.close()
         await client.close()  # idempotent
 
@@ -404,7 +404,7 @@ def test_gate_on_update_hook_client(fake_transport: Any) -> None:
         # the hook path directly through _run_update_gate.
         client.on_update_available(received.append)
         client._run_update_gate()  # gate state cached; info available
-        assert client.version == "1.0.0"
+        assert client.version == "1.0.1"
     finally:
         monkeypatch.undo()
 
