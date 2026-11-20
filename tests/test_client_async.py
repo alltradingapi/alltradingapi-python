@@ -115,7 +115,7 @@ def test_async_from_env_and_close(monkeypatch: pytest.MonkeyPatch, fake_transpor
 
     async def scenario() -> None:
         client = AsyncClient.from_env(transport=fake_transport, run_update_gate=False)
-        assert client.version == "1.0.0"
+        assert client.version == "1.0.1"
         await client.close()
         await client.close()  # idempotent
 

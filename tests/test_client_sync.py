@@ -232,4 +232,4 @@ def test_from_env(monkeypatch: pytest.MonkeyPatch, fake_transport: FakeTransport
 
 
 def test_client_version_property(client: Client) -> None:
-    assert client.version == "1.0.0"
+    assert client.version == "1.0.1"
