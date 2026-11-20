@@ -17,6 +17,8 @@ MANIFEST
 .venv-smoke/
 .venv-pypi/
 .venv-test/
+.venv-new/
+.venv-old/
 venv/
 env/
 
