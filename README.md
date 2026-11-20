@@ -16,7 +16,7 @@ for Quotex.
 
 | | |
 |---|---|
-| [![PyPI](https://img.shields.io/pypi/v/alltradingapi)](https://pypi.org/project/alltradingapi/) | [![Python](https://img.shields.io/pypi/pyversions/alltradingapi)](https://pypi.org/project/alltradingapi/) |
+| [![PyPI](https://img.shields.io/pypi/v/alltradingapi.svg?v=1.0.2)](https://pypi.org/project/alltradingapi/) | [![Python](https://img.shields.io/pypi/pyversions/alltradingapi.svg?v=1.0.2)](https://pypi.org/project/alltradingapi/) |
 | [![License](https://img.shields.io/badge/license-MIT-green)](LICENSE) | |
 
 ## Install
