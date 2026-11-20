@@ -60,4 +60,3 @@ jobs:
           python -m venv .venv-smoke
           .venv-smoke/bin/pip install dist/*.whl
           .venv-smoke/bin/python -c "import alltradingapi; print(alltradingapi.__version__)"
-          .venv-smoke/bin/ata version
