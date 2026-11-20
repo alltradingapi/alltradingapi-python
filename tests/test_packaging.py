@@ -217,4 +217,4 @@ def test_import_from_clean_interpreter() -> None:
         timeout=60,
     )
     assert result.returncode == 0, result.stderr
-    assert result.stdout.strip() == "1.0.0"
+    assert result.stdout.strip() == "1.0.1"
