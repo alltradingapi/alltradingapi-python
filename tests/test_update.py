@@ -428,7 +428,9 @@ def test_client_check_updates_never_raises_for_network() -> None:
     monkeypatch.setattr(update_module, "fetch_latest", broken_fetch, raising=False)
     try:
         info = client.check_updates(force=True)
-        assert info.installed == "1.0.1"
+        from alltradingapi._version import __version__ as expected
+
+        assert info.installed == expected
         assert info.known is False
     finally:
         monkeypatch.undo()
