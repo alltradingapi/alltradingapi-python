@@ -18,6 +18,7 @@ MANIFEST
 .venv-pypi/
 .venv-test/
 .venv-new/
+.venv-final/
 .venv-old/
 venv/
 env/
