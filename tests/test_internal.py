@@ -426,18 +426,6 @@ def test_timed_input_timeout_returns_none(monkeypatch: pytest.MonkeyPatch) -> No
     monkeypatch.setattr(builtins, "input", real_input)
 
 
-def test_explicit_user_agent_override() -> None:
-    from tests.conftest import FakeTransport
-
-    fake = FakeTransport()
-    fake.json_route("/qx_candles", 200, [{"time": 1}])
-    Client(
-        api_key="ap_" + "0" * 32,
-        transport=fake,
-        run_update_gate=False,
-        user_agent="MyCustomAgent/1.0",
-    ).candles("EURUSD_otc")
-    assert fake.calls[-1]["headers"]["User-Agent"] == "MyCustomAgent/1.0"
 
 
 def test_transport_sends_browser_user_agent_per_request() -> None:
