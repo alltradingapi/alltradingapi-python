@@ -58,8 +58,16 @@ def test_boolean_serialisation() -> None:
     assert params["verbose_logging"] == "true"
     params = dict(validate_params("saved", asset="TEST", nocache=True))
     assert params["nocache"] == "true"
+
+
+def test_false_booleans_omitted() -> None:
+    # The server rejects `param=false` with a 400; False must be omitted.
     params = dict(validate_params("saved", asset="TEST", nocache=False))
-    assert params["nocache"] == "false"
+    assert "nocache" not in params
+    params = dict(validate_params("candles", asset="TEST", verbose_logging=False))
+    assert "verbose_logging" not in params
+    params = dict(validate_params("saved", asset="TEST", raw=False, nocache=True))
+    assert "raw" not in params and params["nocache"] == "true"
 
 
 def test_none_values_omitted() -> None:

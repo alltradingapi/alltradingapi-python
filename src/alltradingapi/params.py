@@ -11,7 +11,8 @@ Rules enforced here:
 * unknown kwarg            -> ValidationError listing allowed names
 * out-of-range value       -> ValidationError with the accepted range
 * invalid enum             -> ValidationError listing valid values
-* booleans serialise as    -> "true" / "false"
+* booleans serialise as    -> "true" when True; omitted when False
+                              (the server rejects `param=false` with a 400)
 * ``None`` values          -> omitted entirely from the query string
 * asset format             -> validated against ^[A-Za-z0-9_]{2,40}$ (input is
                               trimmed for validation but never mutated)
@@ -224,6 +225,10 @@ def validate_params(endpoint: str, **params: Any) -> list[tuple[str, str]]:
         if value is None:
             if rule.required:
                 raise ValidationError(f"Missing required parameter '{name}' for '{endpoint}'.")
+            continue
+        if rule.kind == BoolParam and value is False:
+            # The server rejects `param=false` with a 400 ("not available on
+            # this API"); false is the server default, so simply omit it.
             continue
         out.append((name, _serialize(name, rule, value)))
     return out

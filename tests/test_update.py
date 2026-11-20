@@ -128,7 +128,7 @@ def test_check_for_update_fallback_version(update_cache_dir: str) -> None:
     info = update_module.check_for_update(
         installed=None, cache_dir=update_cache_dir, fetcher=_fake_fetcher("9.9.9")
     )
-    assert info.installed == "1.0.0"
+    assert info.installed == "1.0.1"
     assert info.is_outdated is True
 
 
@@ -426,7 +426,7 @@ def test_client_check_updates_never_raises_for_network() -> None:
     monkeypatch.setattr(update_module, "fetch_latest", broken_fetch, raising=False)
     try:
         info = client.check_updates(force=True)
-        assert info.installed == "1.0.0"
+        assert info.installed == "1.0.1"
         assert info.known is False
     finally:
         monkeypatch.undo()

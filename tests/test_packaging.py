@@ -25,7 +25,7 @@ def test_version_matches_pyproject() -> None:
         content = fh.read()
     match = re.search(r'^version\s*=\s*"([^"]+)"', content, re.MULTILINE)
     assert match is not None
-    assert match.group(1) == __version__ == "1.0.0"
+    assert match.group(1) == __version__ == "1.0.1"
 
 
 def test_version_matches_version_file() -> None:
