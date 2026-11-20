@@ -68,12 +68,8 @@ Invalid values raise `ValidationError` before any request is sent.
 ```python
 png = ata.screenshot("EURUSD_otc", timeframe="1m")
 with open("chart.png", "wb") as f:
-    f.write(png)
+    f.write(png)   # real PNG, 1200x680, returned by the API
 ```
-
-<p align="center">
-  <img src="assets/chart-demo.png" alt="Chart image" width="70%">
-</p>
 
 ## Result check
 
