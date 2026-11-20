@@ -69,6 +69,6 @@ jobs:
             echo "- Typed, ships py.typed"
             echo "- Python 3.10+"
             echo
-            echo "Install: \`pip install alltradingapi\`"
+            echo "Install: pip install alltradingapi"
           } > notes.md
           gh release create "$GITHUB_REF_NAME" dist/* --title "alltradingapi $GITHUB_REF_NAME" --notes-file notes.md
