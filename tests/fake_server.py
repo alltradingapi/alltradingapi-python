@@ -23,6 +23,7 @@ def _load(name: str) -> bytes:
 
 class _Handler(BaseHTTPRequestHandler):
     server_version = "ATAFake/1.0"
+    last_user_agent: str | None = None  # class-level capture for tests
 
     def log_message(self, fmt: str, *args: Any) -> None:  # silence
         pass
@@ -49,6 +50,7 @@ class _Handler(BaseHTTPRequestHandler):
         self.wfile.write(body)
 
     def do_GET(self) -> None:
+        _Handler.last_user_agent = self.headers.get("User-Agent")
         path = self.path.split("?")[0]
         if path == "/qx_assets":
             auth = self.headers.get("Authorization", "")

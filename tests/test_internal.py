@@ -12,7 +12,9 @@ import pytest
 
 from alltradingapi import config as _config
 from alltradingapi.cache import TTLCache
+from alltradingapi.client import Client
 from alltradingapi.logging_ import http_debug_line, redacted_key, set_log_level
+from alltradingapi.transport import Transport
 from alltradingapi.utils import (
     coerce_bool_str,
     compact_json,
@@ -422,3 +424,48 @@ def test_timed_input_timeout_returns_none(monkeypatch: pytest.MonkeyPatch) -> No
     result = update_module._timed_input("> ", timeout=0.2)
     assert result is None or result == ""
     monkeypatch.setattr(builtins, "input", real_input)
+
+
+def test_explicit_user_agent_override() -> None:
+    from tests.conftest import FakeTransport
+
+    fake = FakeTransport()
+    fake.json_route("/qx_candles", 200, [{"time": 1}])
+    Client(
+        api_key="ap_" + "0" * 32,
+        transport=fake,
+        run_update_gate=False,
+        user_agent="MyCustomAgent/1.0",
+    ).candles("EURUSD_otc")
+    assert fake.calls[-1]["headers"]["User-Agent"] == "MyCustomAgent/1.0"
+
+
+def test_transport_sends_browser_user_agent_per_request() -> None:
+    from alltradingapi.transport import BROWSER_USER_AGENTS
+    from tests.fake_server import FakeServer
+
+    with FakeServer() as srv:
+        transport = Transport(srv.base_url, connect_timeout=5)
+        seen: set[str] = set()
+        for _ in range(12):
+            transport.request("GET", "/qx_candles")
+            ua = _Handler_ua(srv)
+            assert ua is not None and ua.startswith("Mozilla/5.0"), ua
+            assert ua in BROWSER_USER_AGENTS
+            seen.add(ua)
+        assert len(seen) >= 2  # random per request, not a fixed one
+
+
+def test_explicit_user_agent_override() -> None:
+    from tests.fake_server import FakeServer
+
+    with FakeServer() as srv:
+        transport = Transport(srv.base_url, connect_timeout=5, user_agent="MyCustomAgent/1.0")
+        transport.request("GET", "/qx_candles")
+        assert _Handler_ua(srv) == "MyCustomAgent/1.0"
+
+
+def _Handler_ua(server: Any) -> str | None:
+    import tests.fake_server as fake_server_module
+
+    return fake_server_module._Handler.last_user_agent

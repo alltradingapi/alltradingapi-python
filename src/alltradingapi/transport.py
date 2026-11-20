@@ -40,7 +40,33 @@ from .errors import (
 from .logging_ import http_debug_line, logger
 from .utils import redact_url
 
-__all__ = ["Response", "Transport", "RETRYABLE_SOCKET_ERRORS"]
+__all__ = ["Response", "Transport", "RETRYABLE_SOCKET_ERRORS", "BROWSER_USER_AGENTS"]
+
+# Real browser User-Agents; one is picked at random per request so traffic
+# looks like everyday browser traffic rather than a script.
+BROWSER_USER_AGENTS: tuple[str, ...] = (
+    # Chrome on Windows 10/11
+    "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36",
+    "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36",
+    "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/129.0.0.0 Safari/537.36",
+    # Chrome on macOS
+    "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36",
+    "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36",
+    # Edge on Windows / macOS
+    "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36 Edg/131.0.0.0",
+    "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36 Edg/131.0.0.0",
+    # Firefox on Windows / macOS / Linux
+    "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:133.0) Gecko/20100101 Firefox/133.0",
+    "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:132.0) Gecko/20100101 Firefox/132.0",
+    "Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:133.0) Gecko/20100101 Firefox/133.0",
+    "Mozilla/5.0 (X11; Linux x86_64; rv:133.0) Gecko/20100101 Firefox/133.0",
+    # Safari on macOS / iOS
+    "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.6 Safari/605.1.15",
+    "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/18.0 Safari/605.1.15",
+    "Mozilla/5.0 (iPhone; CPU iPhone OS 18_1 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/18.0 Mobile/15E148 Safari/604.1",
+    # Chrome on Android
+    "Mozilla/5.0 (Linux; Android 14; Pixel 8) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Mobile Safari/537.36",
+)
 
 RETRYABLE_SOCKET_ERRORS = (socket.timeout, ConnectionError, OSError)
 _MAX_REDIRECTS = 0  # the API does not redirect; we do not follow any
@@ -102,7 +128,7 @@ class Transport:
         backoff_factor: float = _config.DEFAULT_BACKOFF_FACTOR,
         retry_statuses: Sequence[int] = _config.DEFAULT_RETRY_STATUSES,
         verify: bool = True,
-        user_agent: str = _config.DEFAULT_USER_AGENT,
+        user_agent: str | None = None,
     ) -> None:
         parts = urlsplit(base_url)
         if parts.scheme not in ("http", "https"):
@@ -116,6 +142,7 @@ class Transport:
         self.backoff_factor = max(0.0, float(backoff_factor))
         self.retry_statuses = tuple(retry_statuses)
         self.verify = verify
+        # None -> a random browser User-Agent is picked per request.
         self.user_agent = user_agent
 
         self._local = threading.local()
@@ -276,9 +303,10 @@ class Transport:
         read_timeout: float,
     ) -> Response:
         headers: dict[str, str] = {
-            "User-Agent": self.user_agent,
+            "User-Agent": self.user_agent or random.choice(BROWSER_USER_AGENTS),
             "Accept-Encoding": "gzip, deflate",
             "Accept": "application/json, image/png, */*",
+            "Accept-Language": "en-US,en;q=0.9",
             "Connection": "keep-alive",
         }
         headers.update(extra_headers)

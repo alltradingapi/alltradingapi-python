@@ -134,7 +134,7 @@ class Client:
             backoff_factor=backoff_factor,
             retry_statuses=retry_statuses,
             verify=verify,
-            user_agent=user_agent or _config.DEFAULT_USER_AGENT,
+            user_agent=user_agent,
         )
 
         if run_update_gate:
