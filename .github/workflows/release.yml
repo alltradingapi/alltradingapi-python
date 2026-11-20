@@ -57,13 +57,18 @@ jobs:
         with:
           name: dist
           path: dist/
-      - name: Extract changelog excerpt
-        id: changelog
-        run: |
-          VERSION="${GITHUB_REF_NAME#v}"
-          awk -v ver="$VERSION" '/^## \[/ {p=0} /^## \['"$VERSION"'\]/ {p=1; next} p' CHANGELOG.md > notes.md
-          head -c 8000 notes.md > notes_trimmed.md
       - name: Create release
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: gh release create "$GITHUB_REF_NAME" dist/* --title "alltradingapi $GITHUB_REF_NAME" --notes-file notes_trimmed.md
+        run: |
+          {
+            echo "Quotex candles, assets, saved candles, candle history, chart images and trade result checks."
+            echo
+            echo "- Zero dependencies, standard library only"
+            echo "- Sync and async clients"
+            echo "- Typed, ships py.typed"
+            echo "- Python 3.10+"
+            echo
+            echo "Install: \`pip install alltradingapi\`"
+          } > notes.md
+          gh release create "$GITHUB_REF_NAME" dist/* --title "alltradingapi $GITHUB_REF_NAME" --notes-file notes.md
