@@ -1,0 +1,115 @@
+[build-system]
+requires = ["hatchling>=1.18"]
+build-backend = "hatchling.build"
+
+[project]
+name = "alltradingapi"
+version = "1.0.0"
+description = "The fastest, most complete Python API for Quotex market data, signals and AI trade analysis."
+readme = "README.md"
+requires-python = ">=3.10"
+license = { text = "MIT" }
+authors = [
+    { name = "All Trading API", email = "admin@alltradingapi.com" },
+]
+keywords = [
+    "quotex", "trading", "api", "binary-options", "market-data",
+    "candles", "signals", "forex", "otc", "analysis", "sdk",
+]
+classifiers = [
+    "Development Status :: 5 - Production/Stable",
+    "Intended Audience :: Developers",
+    "Intended Audience :: Financial and Insurance Industry",
+    "License :: OSI Approved :: MIT License",
+    "Natural Language :: English",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Programming Language :: Python :: 3.14",
+    "Programming Language :: Python :: 3 :: Only",
+    "Topic :: Office/Business :: Financial",
+    "Topic :: Office/Business :: Financial :: Investment",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+    "Typing :: Typed",
+]
+dependencies = []
+
+[project.urls]
+Homepage = "https://alltradingapi.com"
+Documentation = "https://github.com/alltradingapi/alltradingapi-python/tree/main/docs"
+Repository = "https://github.com/alltradingapi/alltradingapi-python"
+Changelog = "https://github.com/alltradingapi/alltradingapi-python/blob/main/CHANGELOG.md"
+Issues = "https://github.com/alltradingapi/alltradingapi-python/issues"
+"API Reference" = "https://alltradingapi.com/docs"
+PyPI = "https://pypi.org/project/alltradingapi/"
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=7.0",
+    "pytest-cov>=4.0",
+    "mypy>=1.0",
+    "ruff>=0.4",
+    "build>=1.0",
+    "twine>=4.0",
+    "mkdocs-material>=9.0",
+]
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/alltradingapi"]
+
+[tool.hatch.build.targets.sdist]
+include = [
+    "/src",
+    "/tests",
+    "/docs",
+    "/examples",
+    "/scripts",
+    "/assets",
+    "/CHANGELOG.md",
+    "/LICENSE",
+    "/README.md",
+    "/pyproject.toml",
+    "/mkdocs.yml",
+]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-q"
+filterwarnings = ["ignore::DeprecationWarning"]
+
+[tool.coverage.run]
+branch = true
+source = ["src/alltradingapi"]
+
+[tool.coverage.report]
+fail_under = 85
+show_missing = true
+exclude_lines = [
+    "pragma: no cover",
+    "if TYPE_CHECKING:",
+    "raise NotImplementedError",
+]
+
+[tool.ruff]
+line-length = 100
+target-version = "py310"
+src = ["src", "tests"]
+# Newer ruff formats Python code fences inside Markdown; README snippets are
+# prose-illustrative and aligned by hand.
+extend-exclude = ["*.md"]
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I", "UP", "B"]
+ignore = ["E501"]
+
+[tool.mypy]
+python_version = "3.10"
+strict = true
+warn_unreachable = true
+pretty = true
+show_error_codes = true
+packages = ["alltradingapi"]
+mypy_path = "src"

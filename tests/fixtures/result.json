@@ -1,0 +1,30 @@
+{
+ "success": true,
+ "asset": "ATOUSD_otc",
+ "timeframe": "1m",
+ "direction": "call",
+ "mtg": 1,
+ "entry_time": "2026-11-19 01:04:00",
+ "candles": [
+  {
+   "time": 1763501040,
+   "open": 0.1901,
+   "close": 0.19034,
+   "high": 0.19036,
+   "low": 0.19002,
+   "ticks": 11,
+   "last_tick": 1763501099.4,
+   "asset": "ATOUSD_otc",
+   "asset_name": "Cosmos (OTC)",
+   "time_read": "2026-11-19 01:04 (UTC: -03:00)",
+   "symbol_id": 368
+  }
+ ],
+ "checks": [
+  "win"
+ ],
+ "candle_directions": [
+  "call"
+ ],
+ "result": "win"
+}

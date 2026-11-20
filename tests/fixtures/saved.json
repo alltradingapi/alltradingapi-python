@@ -1,0 +1,52 @@
+{
+ "asset": "ATOUSD_otc",
+ "timeframe": "1m",
+ "period": 60,
+ "requested_count": 3,
+ "returned_count": 3,
+ "base_period": 5,
+ "days_scanned": 1,
+ "raw_5s_candles": 0,
+ "from_cache": false,
+ "candles": [
+  {
+   "symbol_id": 368,
+   "time": 1763500000,
+   "open": 0.19012,
+   "close": 0.19024,
+   "high": 0.19032,
+   "low": 0.19007,
+   "ticks": 12,
+   "last_tick": 1763500059.4,
+   "asset": "ATOUSD_otc",
+   "asset_name": "Cosmos (OTC)",
+   "time_read": "2026-11-19 01:00 (UTC: -03:00)"
+  },
+  {
+   "symbol_id": 368,
+   "time": 1763500060,
+   "open": 0.19012,
+   "close": 0.19005,
+   "high": 0.1902,
+   "low": 0.19,
+   "ticks": 12,
+   "last_tick": 1763500119.4,
+   "asset": "ATOUSD_otc",
+   "asset_name": "Cosmos (OTC)",
+   "time_read": "2026-11-19 01:01 (UTC: -03:00)"
+  },
+  {
+   "symbol_id": 368,
+   "time": 1763500120,
+   "open": 0.19012,
+   "close": 0.19024,
+   "high": 0.19032,
+   "low": 0.19007,
+   "ticks": 12,
+   "last_tick": 1763500179.4,
+   "asset": "ATOUSD_otc",
+   "asset_name": "Cosmos (OTC)",
+   "time_read": "2026-11-19 01:02 (UTC: -03:00)"
+  }
+ ]
+}

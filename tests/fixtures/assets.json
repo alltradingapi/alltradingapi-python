@@ -1,0 +1,41 @@
+[
+ {
+  "asset_id": 368,
+  "asset": "ATOUSD_otc",
+  "asset_name": "Cosmos (OTC)",
+  "is_open": true,
+  "type": "cryptocurrency",
+  "change_24h": -11.56,
+  "payout": 77,
+  "profit": {
+   "1M": 77,
+   "5M": 69
+  }
+ },
+ {
+  "asset_id": 12,
+  "asset": "EURUSD_otc",
+  "asset_name": "Euro / US Dollar (OTC)",
+  "is_open": true,
+  "type": "currency",
+  "change_24h": 0.21,
+  "payout": 87,
+  "profit": {
+   "1M": 87,
+   "5M": 82
+  }
+ },
+ {
+  "asset_id": 7,
+  "asset": "AUDCAD",
+  "asset_name": "Australian Dollar / Canadian Dollar",
+  "is_open": false,
+  "type": "currency",
+  "change_24h": null,
+  "payout": 0,
+  "profit": {
+   "1M": 0,
+   "5M": 0
+  }
+ }
+]

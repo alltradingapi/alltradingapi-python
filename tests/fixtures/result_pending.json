@@ -1,0 +1,21 @@
+{
+ "success": true,
+ "asset": "ATOUSD_otc",
+ "timeframe": "1m",
+ "direction": "call",
+ "mtg": 2,
+ "entry_time": "2026-11-19 01:04:00",
+ "candles": [
+  {
+   "status": "pending"
+  },
+  {
+   "status": "pending"
+  }
+ ],
+ "checks": [
+  "pending"
+ ],
+ "candle_directions": [],
+ "result": "pending"
+}
