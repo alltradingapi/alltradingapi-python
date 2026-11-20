@@ -390,7 +390,6 @@ def test_resolve_policy_explicit_object(monkeypatch: pytest.MonkeyPatch) -> None
 def test_gate_on_update_hook_client(fake_transport: Any) -> None:
     """Client.on_update_available hooks fire when the gate passes with an update."""
     from alltradingapi import update as update_module
-    from alltradingapi.client import Client
 
     monkeypatch = pytest.MonkeyPatch()
     monkeypatch.delenv(_config.ENV_SKIP_UPDATE, raising=False)
@@ -424,8 +423,6 @@ def test_timed_input_timeout_returns_none(monkeypatch: pytest.MonkeyPatch) -> No
     result = update_module._timed_input("> ", timeout=0.2)
     assert result is None or result == ""
     monkeypatch.setattr(builtins, "input", real_input)
-
-
 
 
 def test_transport_sends_browser_user_agent_per_request() -> None:
